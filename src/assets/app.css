@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root{
+  --bg: #F8F9FA;
+  --text: #212529;
+  --accent: #007BFF;
+}
+
+html, body { height: 100%; }
+body{
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection{ background: rgba(0,123,255,.2); }
+
+/* Typography helpers */
+.prose :where(code):not(:where(pre code)){
+  background: #eef2ff;
+  padding: .15rem .35rem;
+  border-radius: .35rem;
+  font-size: .9em;
+}

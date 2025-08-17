@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import { getCollection } from "astro:content";
+const about = (await getCollection('about'))[0];
+---
+<BaseLayout title="About – Divyesh Halwai">
+  <Container class="prose prose-slate max-w-3xl py-10">
+    <img src="/images/avatar.svg" alt="Avatar" class="w-28 h-28 rounded-full" />
+    <Fragment set:html={about?.body ?? ''} />
+  </Container>
+</BaseLayout>

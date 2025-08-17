@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import PostItem from "../components/PostItem.astro";
+import { getCollection } from "astro:content";
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a,b)=> +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+---
+<BaseLayout title="Blog – Divyesh Halwai">
+  <Container class="py-10">
+    <div class="grid gap-8">
+      {posts.map(p => <PostItem post={p} />)}
+    </div>
+  </Container>
+</BaseLayout>

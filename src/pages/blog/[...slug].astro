@@ -1,0 +1,19 @@
+---
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths(){
+  const posts = await getCollection('blog');
+  return posts.map(p => ({
+    params: { slug: p.slug.split('/') },
+    props: { post: p }
+  }));
+}
+
+const { post } = Astro.props;
+---
+<PostLayout title={post.data.title} description={post.data.description}>
+  <h1>{post.data.title}</h1>
+  <p class="!mt-0 text-sm text-slate-500">{new Date(post.data.pubDate).toLocaleDateString()} • {post.data.tags.join(', ')}</p>
+  <Fragment set:html={post.body} />
+</PostLayout>

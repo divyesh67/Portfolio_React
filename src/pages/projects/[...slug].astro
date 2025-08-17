@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths(){
+  const projects = await getCollection('project');
+  return projects.map(p => ({
+    params: { slug: p.slug.split('/') },
+    props: { project: p }
+  }));
+}
+
+const { project } = Astro.props;
+---
+<BaseLayout title={project.data.title}>
+  <article class="prose prose-slate mx-auto max-w-3xl py-10">
+    <h1>{project.data.title}</h1>
+    <p class="text-slate-500">{project.data.summary}</p>
+    <Fragment set:html={project.body} />
+  </article>
+</BaseLayout>

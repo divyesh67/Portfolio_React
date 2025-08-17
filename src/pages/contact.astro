@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+---
+<BaseLayout title="Contact – Divyesh Halwai">
+  <Container class="py-10">
+    <h1 class="text-3xl font-semibold mb-4">Get in touch</h1>
+    <p class="text-slate-600 mb-6">
+      Find me on <a class="text-[var(--accent)]" href="https://github.com/your-github">GitHub</a>
+      and <a class="text-[var(--accent)]" href="https://linkedin.com/in/your-linkedin">LinkedIn</a>.
+    </p>
+
+    <form name="contact" method="POST" data-netlify="true" class="grid gap-4 max-w-lg bg-white p-6 rounded-xl border">
+      <input type="hidden" name="form-name" value="contact" />
+      <label class="text-sm">Name
+        <input class="mt-1 w-full rounded-lg border p-3" type="text" name="name" required />
+      </label>
+      <label class="text-sm">Email
+        <input class="mt-1 w-full rounded-lg border p-3" type="email" name="email" required />
+      </label>
+      <label class="text-sm">Message
+        <textarea class="mt-1 w-full rounded-lg border p-3" name="message" rows="6"></textarea>
+      </label>
+      <button class="rounded-xl bg-[var(--accent)] px-5 py-2 text-white">Send</button>
+    </form>
+  </Container>
+</BaseLayout>

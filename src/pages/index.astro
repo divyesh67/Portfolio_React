@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/Container.astro";
+import HeroAnimation from "../components/HeroAnimation.jsx";
+import PostItem from "../components/PostItem.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a,b)=> +new Date(b.data.pubDate) - +new Date(a.data.pubDate))
+  .slice(0, 2);
+
+const projects = (await getCollection('project')).slice(0, 3);
+---
+<BaseLayout title="Divyesh Halwai – Data Science Portfolio">
+  <section class="py-16">
+    <Container class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-4xl font-bold tracking-tight">Divyesh Halwai</h1>
+        <p class="mt-2 text-slate-600">Data Scientist. Turning complex data into clear solutions.</p>
+        <a href="/blog" class="mt-6 inline-block rounded-xl bg-[var(--accent)] px-5 py-2 text-white">Read the blog</a>
+      </div>
+      <div class="text-[var(--accent)]">
+        <HeroAnimation client:load />
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-8 border-t border-slate-200 bg-white/60">
+    <Container>
+      <h2 class="text-2xl font-semibold mb-4">Featured Projects</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        {projects.map(pr => <ProjectCard project={pr} />)}
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-8">
+    <Container>
+      <h2 class="text-2xl font-semibold mb-4">Latest Posts</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        {posts.map(p => <PostItem post={p} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
